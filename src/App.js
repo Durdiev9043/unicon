@@ -43,9 +43,7 @@ function App() {
                             <Route exact path="/signin">
                                  <SignIn />
                             </Route>
-                              <Route exact path="/">
-                                  <Home />
-                              </Route>
+
                                 <Redirect from="/" to="/signin" />
 
                           </Switch>
