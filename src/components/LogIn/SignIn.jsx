@@ -14,7 +14,7 @@ function SignIn() {
   const HandleLogin = async () => {
 
     try {
-      const response = await fetch('http://unic1.pythonanywhere.com/user/login/', {
+      const response = await fetch('http://unic2.pythonanywhere.com/user/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

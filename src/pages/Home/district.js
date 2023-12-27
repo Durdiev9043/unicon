@@ -8,7 +8,7 @@ const District = () => {
     const [ data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://unic1.pythonanywhere.com/api/district-stats-by-region/?region_id=${id}`)
+        axios.get(`https://unic2.pythonanywhere.com/api/district-stats-by-region/?region_id=${id}`)
             .then(response => {
 
                 setData(response.data);

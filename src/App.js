@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from './components/sidebar'
 import Home from "./pages/Home/index.js";
 import District from "./pages/Home/district";
+import Task from "./pages/Home/xodim";
 import SignIn from "./components/LogIn/SignIn.jsx";
 import { SnackbarProvider } from "notistack";
 import { Banner } from "./pages/PageFail/Pages_1.jsx";
@@ -68,6 +69,9 @@ function App() {
                                         </Route>
                                           <Route path='/district/:id'>
                                             <District />
+                                          </Route>
+                                          <Route path='/staff/task'>
+                                            <Task />
                                           </Route>
                                       </>
                                       )}

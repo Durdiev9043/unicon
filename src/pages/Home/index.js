@@ -103,7 +103,7 @@ const Home = () => {
 
   useEffect(() => {
     // API-dan ma'lumotlarni olish
-    axios.get('https://unic1.pythonanywhere.com/api/region-stats/')
+    axios.get('https://unic2.pythonanywhere.com/api/region-stats/')
         .then(response => {
           // Olingan ma'lumotlarni state-ga saqlash
           setData(response.data);
