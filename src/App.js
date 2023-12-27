@@ -40,10 +40,14 @@ function App() {
                       <BrowserRouter>
                           <GlobalStyle />
                           <Switch>
-                  <Route exact path="/signin">
-                      <SignIn />
-                  </Route>
-                  <Redirect from="/" to="/signin" />
+                            <Route exact path="/signin">
+                                 <SignIn />
+                            </Route>
+                              <Route exact path="/">
+                                  <Home />
+                              </Route>
+                                <Redirect from="/" to="/signin" />
+
                           </Switch>
                       </BrowserRouter>
                   </SnackbarProvider>
