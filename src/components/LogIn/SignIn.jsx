@@ -58,7 +58,7 @@ function SignIn() {
               fullWidth
               id="outlined-basic"
               type="text"
-              label="Telefon raqami:"
+              label="Telefon raqami"
               variant="outlined"
               onChange={(e) => setPhone(e.target.value)}
             />
