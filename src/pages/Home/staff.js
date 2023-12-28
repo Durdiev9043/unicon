@@ -19,6 +19,7 @@ const District = () => {
             });
     }, []);
     console.log(data)
+    if (data.members){
     return (
         <div className="p-5">
             <h2 className="text-center">{data.district_name} bugun qilingan ishlar boyicha hisobot</h2>
@@ -35,6 +36,7 @@ const District = () => {
                 </tr>
                 </thead>
                 <tbody>
+
                 {data.members.map(district => (
                     <tr >
 
@@ -53,6 +55,10 @@ const District = () => {
         </div>
 
     );
-};
+}else
+{return (
+    <div>iltimos kuting</div>
+
+)};}
 
 export default District;
