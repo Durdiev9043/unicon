@@ -28,7 +28,7 @@ const i=0;
             {/* Bu joyda foydalanuvchi ma'lumotlari ko'rsatilishi mumkin  https://xorazm.uz/news/${dinamik} */}
             <table className="table table-striped table-bordered">
                 <thead>
-                <tr>
+                <tr  className="text-center">
                     <th>№</th>
                     <th>Vaqt</th>
                     <th>F.I.O</th>
@@ -45,7 +45,7 @@ const i=0;
                 <tbody>
                 {data.map( item => (
 
-                    <tr >
+                    <tr  className="text-center">
                         <td>1</td>
                         <td>12.22.2023  22:49</td>
                         <td> {item.member['full_name']}  </td>

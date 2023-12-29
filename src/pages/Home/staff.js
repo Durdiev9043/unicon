@@ -26,7 +26,7 @@ const District = () => {
             {/* Bu joyda foydalanuvchi ma'lumotlari ko'rsatilishi mumkin  https://xorazm.uz/news/${dinamik} */}
             <table className="table table-striped table-bordered">
                 <thead>
-                <tr>
+                <tr className="text-center">
                     <th>Viloyat nomi</th>
                     <th>Seminar-trening</th>
                     <th>Texnik yordam</th>
@@ -38,7 +38,7 @@ const District = () => {
                 <tbody>
 
                 {data.members.map(district => (
-                    <tr >
+                    <tr  className="text-center">
 
                         <td>{district.full_name}</td>
                         <td>{district.counts['Seminar-trening']}</td>

@@ -132,7 +132,7 @@ console.log(data)
         </div>
         <table className="table shadow-sm table-striped table-bordered mt-4">
           <thead>
-          <tr>
+          <tr  className="text-center">
             <th rowSpan="2">Viloyat nomi</th>
             <th rowSpan="2">Tumanlar soni</th>
             <th rowSpan="2">Xodimlar soni</th>
@@ -143,7 +143,7 @@ console.log(data)
             <th rowSpan="2">Bir hafta</th>
             {/* Boshqa ustunlar kerak bo'lsa ularga ham shu tarzda qo'shing */}
           </tr>
-          <tr>
+          <tr  className="text-center">
 
             <th>Bajarilgan Soni</th>
             <th>Bajarilgan %</th>
@@ -153,7 +153,7 @@ console.log(data)
           <tbody>
           {/* API-dan olingan ma'lumotlarni jadvalga chiqaring */}
           {data.map(item => (
-              <tr key={item.id}>
+              <tr key={item.id}  className="text-center">
                 <td><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
                 <td>{item.district_count}</td>
                 <td>{item.member_count}</td>

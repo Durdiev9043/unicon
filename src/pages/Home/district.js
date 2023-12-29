@@ -26,7 +26,7 @@ const District = () => {
 
             <table className="table table-striped table-bordered">
                 <thead>
-                <tr>
+                <tr  className="text-center">
                     <th rowSpan="2">Tumanlar nomi</th>
                     <th rowSpan="2">Xodimlar soni</th>
                     <th colSpan="2">Bir kunlik</th>
@@ -36,7 +36,7 @@ const District = () => {
                     <th rowSpan="2">Bir hafta</th>
 
                 </tr>
-                <tr>
+                <tr  className="text-center">
 
                     <th>Bajarilgan Soni</th>
                     <th>Bajarilgan %</th>
@@ -45,7 +45,7 @@ const District = () => {
                 </thead>
                 <tbody>
                 {data.map(district => (
-                    <tr >
+                    <tr  className="text-center">
                         <td><Link to={"/staff/"+district.district_id}>{district.district_name}</Link></td>
                         <td>{district.member_count}</td>
                         <td>{district.tasks_done_today}</td>
