@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import axios from "axios";
+import 'jquery/dist/jquery.min.js';
+
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
 
 const District = () => {
     const { id } = useParams();
@@ -12,6 +18,24 @@ const District = () => {
             .then(response => {
 
                 setData(response.data);
+                $(document).ready(function () {
+                    setTimeout(function(){
+                        $('#example').DataTable({
+                            "pageLength": 50,
+                            language: {
+                                search: "Qisirish:",
+                                lengthMenu:    " _MENU_ ",
+                                info:           " _START_/_END_  Jami:  _TOTAL_ ",
+                                paginate: {
+                                    first:      "Premier",
+                                    previous:   "Oldingi",
+                                    next:       "Keyingi",
+                                    last:       "<-"
+                                },
+                            }
+                        });
+                    } ,1000);
+                });
             })
             .catch(error => {
                 console.error(error);
@@ -24,7 +48,7 @@ const District = () => {
         <div className="p-5">
             <h2 className="text-center">Viloyat bo'yicha statistika</h2>
 
-            <table className="table table-striped table-bordered">
+            <table className="table table-striped table-bordered" id="example">
                 <thead>
                 <tr  className="text-center">
                     <th rowSpan="2">Tumanlar nomi</th>
@@ -45,7 +69,8 @@ const District = () => {
                 </thead>
                 <tbody>
                 {data.map(district => (
-                    <tr  className="text-center">
+                    parseInt(district.seminar_plan_difference)<30  ? (
+                    <tr  className="text-center table-danger">
                         <td><Link to={"/staff/"+district.district_id}>{district.district_name}</Link></td>
                         <td>{district.member_count}</td>
                         <td>{district.tasks_done_today}</td>
@@ -57,7 +82,20 @@ const District = () => {
 
 
 
-                    </tr>
+                    </tr>) :
+                        ( <tr  className="text-center ">
+                            <td><Link to={"/staff/"+district.district_id}>{district.district_name}</Link></td>
+                            <td>{district.member_count}</td>
+                            <td>{district.tasks_done_today}</td>
+                            <td>{district.seminar_plan_difference}</td>
+                            <td>{district.tasks_done_yesterday}</td>
+                            <td>{district.tasks_done_today}</td>
+                            <td>{district.tasks_done_difference}</td>
+                            <td>{district.tasks_done_this_week}</td>
+
+
+
+                        </tr>)
                 ))}
                 </tbody>
             </table>

@@ -27,6 +27,12 @@ import { UserPages } from "../PageFail/Pages3.jsx";
 import { User } from "../PageFail/userPage.jsx";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import 'jquery/dist/jquery.min.js';
+
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery';
 
 const drawerWidth = 280;
 
@@ -34,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
+
   nested: {
     paddingLeft: theme.spacing(2),
   },
@@ -92,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+
 }));
 
 const Home = () => {
@@ -107,6 +115,24 @@ const Home = () => {
         .then(response => {
           // Olingan ma'lumotlarni state-ga saqlash
           setData(response.data);
+          $(document).ready(function () {
+            setTimeout(function(){
+              $('#example').DataTable({
+                "pageLength": 50,
+                language: {
+                  search: "Qisirish:",
+                  lengthMenu:    " _MENU_ ",
+                  info:           " _START_/_END_  Jami:  _TOTAL_ ",
+                  paginate: {
+                    first:      "Premier",
+                    previous:   "Oldingi",
+                    next:       "Keyingi",
+                    last:       "<-"
+                  },
+                }
+              });
+            } ,1000);
+          });
         })
         .catch(error => {
           console.error(error);
@@ -130,9 +156,9 @@ console.log(data)
           <h2 className="text-center">Viloyatlar kesimida qilingan ishlar hisoboti</h2>
 
         </div>
-        <table className="table shadow-sm table-striped table-bordered mt-4">
+        <table className="table shadow-sm table-striped table-bordered mt-4" id="example">
           <thead>
-          <tr  className="text-center">
+          <tr  className="text-center red" >
             <th rowSpan="2">Viloyat nomi</th>
             <th rowSpan="2">Tumanlar soni</th>
             <th rowSpan="2">Xodimlar soni</th>
@@ -152,20 +178,34 @@ console.log(data)
           </thead>
           <tbody>
           {/* API-dan olingan ma'lumotlarni jadvalga chiqaring */}
-          {data.map(item => (
-              <tr key={item.id}  className="text-center">
-                <td><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
-                <td>{item.district_count}</td>
-                <td>{item.member_count}</td>
-                <td>{item.tasks_done_today}</td>
-                <td>{item.seminar_plan_difference}</td>
-                <td>{item.tasks_done_yesterday}</td>
-                <td>{item.tasks_done_today}</td>
-                <td>{item.tasks_done_difference}</td>
-                <td>{item.tasks_done_this_week}</td>
+          {data.map(item =>
+              parseInt(item.seminar_plan_difference)<30  ? (
+            <tr key={item.id}  className="text-center table-danger"   >
+                <td ><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
+                <td > {item.district_count}</td>
+                <td >{item.member_count}</td>
+                <td >{item.tasks_done_today}</td>
+                <td >{parseInt(item.seminar_plan_difference)} %</td>
+                <td >{item.tasks_done_yesterday}</td>
+                <td >{item.tasks_done_today}</td>
+                <td >{item.tasks_done_difference}</td>
+                <td >{item.tasks_done_this_week}</td>
 
-              </tr>
-          ))}
+              </tr>) :
+                  (<tr key={item.id}  className="text-center "   >
+                    <td ><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
+                    <td > {item.district_count}</td>
+                    <td >{item.member_count}</td>
+                    <td >{item.tasks_done_today}</td>
+                    <td >{parseInt(item.seminar_plan_difference)} %</td>
+                    <td >{item.tasks_done_yesterday}</td>
+                    <td >{item.tasks_done_today}</td>
+                    <td >{item.tasks_done_difference}</td>
+                    <td >{item.tasks_done_this_week}</td>
+
+                  </tr>)
+
+          )}
           </tbody>
         </table>
       </div>

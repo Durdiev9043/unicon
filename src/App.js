@@ -12,6 +12,7 @@ import SignIn from "./components/LogIn/SignIn.jsx";
 import { SnackbarProvider } from "notistack";
 import { Banner } from "./pages/PageFail/Pages_1.jsx";
 import Login from "./components/LogIn/login.jsx";
+
 const GlobalStyle = createGlobalStyle`
 * {
   padding: 0
