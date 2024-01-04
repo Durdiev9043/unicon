@@ -120,7 +120,7 @@ const Home = () => {
               $('#example').DataTable({
                 "pageLength": 50,
                 language: {
-                  search: "Qisirish:",
+                  search: "Qidirish:",
                   lengthMenu:    " _MENU_ ",
                   info:           " _START_/_END_  Jami:  _TOTAL_ ",
                   paginate: {
@@ -185,10 +185,10 @@ console.log(data)
                 <td > {item.district_count}</td>
                 <td >{item.member_count}</td>
                 <td >{item.tasks_done_today}</td>
-                <td >{parseInt(item.seminar_plan_difference)} %</td>
+                <td >{item.seminar_plan_difference} </td>
                 <td >{item.tasks_done_yesterday}</td>
                 <td >{item.tasks_done_today}</td>
-                <td >{item.tasks_done_difference}</td>
+              {item.tasks_done_difference>0 ? (<td >{item.tasks_done_difference}</td>):(<td className="text-danger">{item.tasks_done_difference}</td>)}
                 <td >{item.tasks_done_this_week}</td>
 
               </tr>) :
@@ -197,10 +197,10 @@ console.log(data)
                     <td > {item.district_count}</td>
                     <td >{item.member_count}</td>
                     <td >{item.tasks_done_today}</td>
-                    <td >{parseInt(item.seminar_plan_difference)} %</td>
+                    <td >{item.seminar_plan_difference} </td>
                     <td >{item.tasks_done_yesterday}</td>
                     <td >{item.tasks_done_today}</td>
-                    <td >{item.tasks_done_difference}</td>
+                    {item.tasks_done_difference>0 ? (<td >{item.tasks_done_difference}</td>):(<td className="text-danger">{item.tasks_done_difference}</td>)}
                     <td >{item.tasks_done_this_week}</td>
 
                   </tr>)

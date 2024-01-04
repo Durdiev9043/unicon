@@ -23,7 +23,7 @@ const District = () => {
                         $('#example').DataTable({
                             "pageLength": 50,
                             language: {
-                                search: "Qisirish:",
+                                search: "Qidirish:",
                                 lengthMenu:    " _MENU_ ",
                                 info:           " _START_/_END_  Jami:  _TOTAL_ ",
                                 paginate: {
@@ -77,7 +77,7 @@ const District = () => {
                         <td>{district.seminar_plan_difference}</td>
                         <td>{district.tasks_done_yesterday}</td>
                         <td>{district.tasks_done_today}</td>
-                        <td>{district.tasks_done_difference}</td>
+                        {district.tasks_done_difference>0 ? (<td >{district.tasks_done_difference}</td>):(<td className="text-danger">{district.tasks_done_difference}</td>)}
                         <td>{district.tasks_done_this_week}</td>
 
 
@@ -90,7 +90,7 @@ const District = () => {
                             <td>{district.seminar_plan_difference}</td>
                             <td>{district.tasks_done_yesterday}</td>
                             <td>{district.tasks_done_today}</td>
-                            <td>{district.tasks_done_difference}</td>
+                            {district.tasks_done_difference>0 ? (<td >{district.tasks_done_difference}</td>):(<td className="text-danger">{district.tasks_done_difference}</td>)}
                             <td>{district.tasks_done_this_week}</td>
 
 

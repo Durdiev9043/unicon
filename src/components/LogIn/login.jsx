@@ -22,7 +22,8 @@ const Login = () => {
       const data = await response.json();
       localStorage.setItem("token", JSON.stringify(data.token));
       localStorage.setItem("tovar", JSON.stringify(data));
-        window.location.href = "/home";
+        data.token ? (window.location.href = "/home"):(window.location.href = "/signin")
+
         console.log(data)
     } catch (error) {
       console.error('Xatolik:', error.message);

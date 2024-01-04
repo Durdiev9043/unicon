@@ -26,9 +26,9 @@ function SignIn() {
       });
 
       const dataValue = await response.json();
-      localStorage.setItem("token", JSON.stringify(dataValue.token));
+        dataValue.token ? (localStorage.setItem("token", JSON.stringify(dataValue.token))):(localStorage.setItem("xatolik", JSON.stringify(dataValue.token)));
       localStorage.setItem("tovar", JSON.stringify(dataValue));
-        window.location.href = "/";
+        dataValue.token ? (window.location.href = "/"):(window.location.href = "/signin")
         console.log(dataValue)
     } catch (error) {
       console.error('Xatolik:', error.message);
