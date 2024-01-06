@@ -26,7 +26,7 @@ function SignIn() {
       });
 
       const dataValue = await response.json();
-        dataValue.token ? (localStorage.setItem("token", JSON.stringify(dataValue.token))):(localStorage.setItem("xatolik", JSON.stringify(dataValue.token)));
+        dataValue.token ? (localStorage.setItem("token", JSON.stringify(dataValue.token))):(window.location.href = "/signin");
       localStorage.setItem("tovar", JSON.stringify(dataValue));
         dataValue.token ? (window.location.href = "/"):(window.location.href = "/signin")
         console.log(dataValue)

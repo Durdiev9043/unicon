@@ -180,6 +180,7 @@ console.log(data)
           {/* API-dan olingan ma'lumotlarni jadvalga chiqaring */}
           {data.map(item =>
               parseInt(item.seminar_plan_difference)<30  ? (
+
             <tr key={item.id}  className="text-center table-danger"   >
                 <td ><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
                 <td > {item.district_count}</td>
@@ -191,8 +192,9 @@ console.log(data)
               {item.tasks_done_difference>0 ? (<td >{item.tasks_done_difference}</td>):(<td className="text-danger">{item.tasks_done_difference}</td>)}
                 <td >{item.tasks_done_this_week}</td>
 
-              </tr>) :
-                  (<tr key={item.id}  className="text-center "   >
+              </tr>):
+                  parseInt(item.seminar_plan_difference)>30 && parseInt(item.seminar_plan_difference)<60 ?
+                  (<tr key={item.id}  className="text-center table-warning"   >
                     <td ><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
                     <td > {item.district_count}</td>
                     <td >{item.member_count}</td>
@@ -203,7 +205,21 @@ console.log(data)
                     {item.tasks_done_difference>0 ? (<td >{item.tasks_done_difference}</td>):(<td className="text-danger">{item.tasks_done_difference}</td>)}
                     <td >{item.tasks_done_this_week}</td>
 
-                  </tr>)
+                  </tr>
+                  ):
+                          (<tr key={item.id}  className="text-center"   >
+                                <td ><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
+                                <td > {item.district_count}</td>
+                                <td >{item.member_count}</td>
+                                <td >{item.tasks_done_today}</td>
+                                <td >{item.seminar_plan_difference} </td>
+                                <td >{item.tasks_done_yesterday}</td>
+                                <td >{item.tasks_done_today}</td>
+                                {item.tasks_done_difference>0 ? (<td >{item.tasks_done_difference}</td>):(<td className="text-danger">{item.tasks_done_difference}</td>)}
+                                <td >{item.tasks_done_this_week}</td>
+
+                              </tr>
+                          )
 
           )}
           </tbody>
