@@ -207,7 +207,7 @@ console.log(data)
 
                   </tr>
                   ):
-                          (<tr key={item.id}  className="text-center"   >
+                          (<tr key={item.id}  className="text-center table-primary"   >
                                 <td ><Link to={"district/"+item.region_id}>{item.region_name}</Link></td>
                                 <td > {item.district_count}</td>
                                 <td >{item.member_count}</td>
