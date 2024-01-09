@@ -90,6 +90,9 @@ body {
     position: relative;
 
 }
-.red{
-    background: red !important;
+.s100{
+    background: rgba(8, 255, 0, 0.24) !important;
+}
+.w700{
+    font-weight: 700;
 }
