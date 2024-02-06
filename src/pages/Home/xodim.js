@@ -10,7 +10,14 @@ const i=0;
     useEffect(() => {
         // API-dan ma'lumotlarni olish  '/?filter_param=today'
         // setTimeout(() => setLoading(false), 3300)
-        axios.get(`https://unic1.pythonanywhere.com/api/todo/`)
+        const str = localStorage.getItem("token")
+        const parts = str.split('|');
+        const substringAfterPipe = parts[1];
+        axios.get(`http://127.0.0.1:8000/api/work/time/`,{
+            headers:{
+                Authorization :`Bearer ${substringAfterPipe.replace(/"/g, '')}`
+            }})
+
             .then(response => {
                 // Olingan ma'lumotlarni state-ga saqlash
                 setData(response.data);

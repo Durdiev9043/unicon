@@ -1,83 +1,89 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import styled from "styled-components";
-import cardImg from "../../logo.svg";
 import Unicon from "../../Unicon_soft.png";
-import "./styled.css";
 
 function SignIn() {
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  console.log(phone);
-  console.log(password);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  const HandleLogin = async () => {
+    const handleLogin = async () => {
+        try {
+            const requestData = {
+                email: email,
+                password: password
+            };
 
-    try {
-      const response = await fetch('http://unic2.pythonanywhere.com/user/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          phone: phone,
-          password: password,
-        }),
-      });
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-      const dataValue = await response.json();
-        dataValue.token ? (localStorage.setItem("token", JSON.stringify(dataValue.token))):(window.location.href = "/signin");
-      localStorage.setItem("tovar", JSON.stringify(dataValue));
-        dataValue.token ? (window.location.href = "/"):(window.location.href = "/signin")
-        console.log(dataValue)
-    } catch (error) {
-      console.error('Xatolik:', error.message);
-    }
-  };
+                const response = await fetch('http://unic2staffbot.us.uz/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token, // Include CSRF token in the request headers
+                },
+                body: JSON.stringify(requestData),
+            });
 
-  return (
-    <Wrapper className="Wrapper  animate__animated animate__fadeIn">
-      <PaperStyled className="animate__animated animate__bounceInRight">
-        <RowStyled >
-          <img src={Unicon} />
-        </RowStyled>
-        <RowLeftStyled>
-            <Typography
-              style={{
-                marginTop: "40px",
-                marginBottom: "30px",
-                textShadow: "0px 0px 2px blue",
-                textAlign: "center",
-              }}
-              variant="h4"
-            >
-              Tizimga kirish
-            </Typography>
-            <TextField
-              style={{ marginBottom: "20px" }}
-              fullWidth
-              id="outlined-basic"
-              type="text"
-              label="Telefon raqami"
-              variant="outlined"
-              onChange={(e) => setPhone(e.target.value)}
-            />
-            <TextField
-              style={{ marginBottom: "20px" }}
-              fullWidth
-              id="outlined-basic"
-              type="password"
-              label="Parol:"
-              variant="outlined"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <StyledButton onClick={HandleLogin}  variant="outlined" type="submit">
-              Kirish
-            </StyledButton>
-        </RowLeftStyled>
-      </PaperStyled>
-    </Wrapper>
-  );
+            const dataValue = await response.json();
+            if (response.ok) {
+                localStorage.setItem("token", JSON.stringify(dataValue.token));
+                window.location.href = "/";
+            } else {
+                console.error('Failed to log in:', dataValue);
+            }
+        } catch (error) {
+            console.error('Error logging in:', error.message);
+        }
+    };
+
+
+
+    return (
+        <Wrapper>
+            <PaperStyled>
+                <RowStyled>
+                    <img src={Unicon} alt="logo" />
+                </RowStyled>
+                <RowLeftStyled>
+                    <Typography
+                        style={{
+                            marginTop: "40px",
+                            marginBottom: "30px",
+                            textShadow: "0px 0px 2px blue",
+                            textAlign: "center",
+                        }}
+                        variant="h4"
+                    >
+                        Tizimga kirish
+                    </Typography>
+                    <TextField
+                        style={{ marginBottom: "20px" }}
+                        fullWidth
+                        id="email"
+                        type="email"
+                        label="Email"
+                        variant="outlined"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                        style={{ marginBottom: "20px" }}
+                        fullWidth
+                        id="password"
+                        type="password"
+                        label="Parol"
+                        variant="outlined"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <StyledButton onClick={handleLogin} variant="outlined">
+                        Kirish
+                    </StyledButton>
+                </RowLeftStyled>
+            </PaperStyled>
+        </Wrapper>
+    );
 }
 
 export default SignIn;
@@ -90,30 +96,32 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const PaperStyled = styled(Paper)`
   width: 800px;
   height: 450px;
   display: flex;
   overflow: hidden;
 `;
+
 const RowStyled = styled.div`
   width: 800px;
   height: 100%;
   padding-left: 50px;
   img {
-
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: skew(-10deg, 0deg  );
+    transform: skew(-10deg, 0deg);
     margin-left: -40px;
   }
 `;
+
 const RowLeftStyled = styled.div`
   padding: 30px;
 `;
 
-export const StyledButton = styled(Button)`
+const StyledButton = styled(Button)`
   && {
     margin-top: 20px;
     border: 2px solid #3545a3;

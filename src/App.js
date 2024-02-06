@@ -8,6 +8,7 @@ import Home from "./pages/Home/index.js";
 import District from "./pages/Home/district";
 import Staff from "./pages/Home/staff";
 import Task from "./pages/Home/xodim";
+import UserCount from "./pages/Home/userCount";
 import SignIn from "./components/LogIn/SignIn.jsx";
 import { SnackbarProvider } from "notistack";
 import { Banner } from "./pages/PageFail/Pages_1.jsx";
@@ -79,6 +80,9 @@ function App() {
                                           </Route>
                                         <Route path='/staff/:id'>
                                             <Staff />
+                                          </Route>
+                                          <Route path='/user/count/:id'>
+                                              <UserCount />
                                           </Route>
                                       </>
                                       )}

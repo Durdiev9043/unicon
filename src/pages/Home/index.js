@@ -110,8 +110,16 @@ const Home = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    const str = localStorage.getItem("token")
+    const parts = str.split('|');
+    const substringAfterPipe = parts[1];
+    console.log(substringAfterPipe.substring(0, str.length - 1))
     // API-dan ma'lumotlarni olish
-    axios.get('https://unic2.pythonanywhere.com/api/region-stats/')
+    axios.get('http://unic2staffbot.us.uz/api/boss/glavni', {
+      headers:{
+        Authorization :`Bearer ${substringAfterPipe.replace(/"/g, '')}`
+      }
+    })
         .then(response => {
           // Olingan ma'lumotlarni state-ga saqlash
           setData(response.data);
@@ -149,7 +157,16 @@ const Home = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-console.log(data)
+
+  let dataArray = [];
+
+  for (let key in data) {
+    if (data.hasOwnProperty(key)) {
+      dataArray.push(data[key]);
+    }
+  }
+
+  console.log(dataArray);
   return (
       <div className="row p-5">
         <div className="shadow-sm p-3">
@@ -178,61 +195,62 @@ console.log(data)
           </thead>
           <tbody>
           {/* API-dan olingan ma'lumotlarni jadvalga chiqaring */}
-          {data.map(item =>
-              parseInt(item.seminar_plan_difference)<30  ? (
+          {dataArray.map(item =>
+              // parseInt(item.seminar_plan_difference)<30  ? (
 
-            <tr key={item.id}  className="w700 table-danger"   >
-                <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-                <td className="text-center"> {item.district_count}</td>
-                <td className="text-center">{item.member_count}</td>
-                <td className="text-center">{item.tasks_done_today}</td>
-                <td className="text-center">{item.seminar_plan_difference} </td>
-                <td className="text-center">{item.tasks_done_yesterday}</td>
-                <td className="text-center">{item.tasks_done_today}</td>
+            <tr key={item.id}  className="w700"   >
+                <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
+                <td className="text-center"> {item.District}</td>
+                <td className="text-center">{item.User}</td>
+                <td className="text-center">{item.today}</td>
+                <td className="text-center">{item.today} </td>
+                <td className="text-center">{item.yesterday}</td>
+                <td className="text-center">{item.today}</td>
               {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-                <td className="text-center">{item.tasks_done_this_week}</td>
+                <td className="text-center">{item.thisweek}</td>
 
-              </tr>):
-                  parseInt(item.seminar_plan_difference)>=30 && parseInt(item.seminar_plan_difference)<60 ?
-                  (<tr key={item.id}  className="w700 table-warning"   >
-                    <td ><Link class="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-                    <td className="text-center"> {item.district_count}</td>
-                    <td className="text-center">{item.member_count}</td>
-                    <td className="text-center">{item.tasks_done_today}</td>
-                    <td className="text-center">{item.seminar_plan_difference} </td>
-                    <td className="text-center">{item.tasks_done_yesterday}</td>
-                    <td className="text-center">{item.tasks_done_today}</td>
-                    {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-                    <td className="text-center">{item.tasks_done_this_week}</td>
-
-                  </tr>
-                  ) : parseInt(item.seminar_plan_difference)>=60 && parseInt(item.seminar_plan_difference)<100 ?
-                          (<tr key={item.id}  className=" table-primary w700"   >
-                                <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-                                <td className="text-center font-weight-bold"> {item.district_count}</td>
-                                <td className="text-center font-weight-bold">{item.member_count}</td>
-                                <td className="text-center font-weight-bold">{item.tasks_done_today}</td>
-                                <td className="text-center font-weight-bold">{item.seminar_plan_difference} </td>
-                                <td className="text-center font-weight-bold">{item.tasks_done_yesterday}</td>
-                                <td className="text-center font-weight-bold">{item.tasks_done_today}</td>
-                                {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-                                <td className="text-center">{item.tasks_done_this_week}</td>
-
-                              </tr>
-                          ) : parseInt(item.seminar_plan_difference)>=100  ?
-                              (<tr key={item.id}  className="s100 w700"   >
-                                    <td className="s100"><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-                                    <td className="text-center font-weight-bold s100"> {item.district_count}</td>
-                                    <td className="text-center font-weight-bold s100">{item.member_count}</td>
-                                    <td className="text-center font-weight-bold s100">{item.tasks_done_today}</td>
-                                    <td className="text-center font-weight-bold s100">{item.seminar_plan_difference} </td>
-                                    <td className="text-center font-weight-bold s100">{item.tasks_done_yesterday}</td>
-                                    <td className="text-center font-weight-bold s100">{item.tasks_done_today}</td>
-                                    {item.tasks_done_difference>0 ? (<td className="text-center s100">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-                                    <td className="text-center s100">{item.tasks_done_this_week}</td>
-
-                                  </tr>
-                              ) : null
+              </tr>
+          // ):
+          //         parseInt(item.seminar_plan_difference)>=30 && parseInt(item.seminar_plan_difference)<60 ?
+          //         (<tr key={item.id}  className="w700 table-warning"   >
+          //           <td ><Link class="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
+          //           <td className="text-center"> {item.district_count}</td>
+          //           <td className="text-center">{item.member_count}</td>
+          //           <td className="text-center">{item.tasks_done_today}</td>
+          //           <td className="text-center">{item.seminar_plan_difference} </td>
+          //           <td className="text-center">{item.tasks_done_yesterday}</td>
+          //           <td className="text-center">{item.tasks_done_today}</td>
+          //           {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
+          //           <td className="text-center">{item.tasks_done_this_week}</td>
+          //
+          //         </tr>
+          //         ) : parseInt(item.seminar_plan_difference)>=60 && parseInt(item.seminar_plan_difference)<100 ?
+          //                 (<tr key={item.id}  className=" table-primary w700"   >
+          //                       <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
+          //                       <td className="text-center font-weight-bold"> {item.district_count}</td>
+          //                       <td className="text-center font-weight-bold">{item.member_count}</td>
+          //                       <td className="text-center font-weight-bold">{item.tasks_done_today}</td>
+          //                       <td className="text-center font-weight-bold">{item.seminar_plan_difference} </td>
+          //                       <td className="text-center font-weight-bold">{item.tasks_done_yesterday}</td>
+          //                       <td className="text-center font-weight-bold">{item.tasks_done_today}</td>
+          //                       {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
+          //                       <td className="text-center">{item.tasks_done_this_week}</td>
+          //
+          //                     </tr>
+          //                 ) : parseInt(item.seminar_plan_difference)>=100  ?
+          //                     (<tr key={item.id}  className="s100 w700"   >
+          //                           <td className="s100"><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
+          //                           <td className="text-center font-weight-bold s100"> {item.district_count}</td>
+          //                           <td className="text-center font-weight-bold s100">{item.member_count}</td>
+          //                           <td className="text-center font-weight-bold s100">{item.tasks_done_today}</td>
+          //                           <td className="text-center font-weight-bold s100">{item.seminar_plan_difference} </td>
+          //                           <td className="text-center font-weight-bold s100">{item.tasks_done_yesterday}</td>
+          //                           <td className="text-center font-weight-bold s100">{item.tasks_done_today}</td>
+          //                           {item.tasks_done_difference>0 ? (<td className="text-center s100">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
+          //                           <td className="text-center s100">{item.tasks_done_this_week}</td>
+          //
+          //                         </tr>
+          //                     ) : null
 
           )}
           </tbody>

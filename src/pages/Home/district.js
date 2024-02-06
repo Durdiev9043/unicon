@@ -14,7 +14,15 @@ const District = () => {
     const [ data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://unic2.pythonanywhere.com/api/district-stats-by-region/?region_id=${id}`)
+
+        const str = localStorage.getItem("token")
+        const parts = str.split('|');
+        const substringAfterPipe = parts[1];
+        console.log(substringAfterPipe.substring(0, str.length - 1))
+        axios.get(`http://unic2staffbot.us.uz/api/boss/district/${id}`, {
+            headers:{
+                Authorization :`Bearer ${substringAfterPipe.replace(/"/g, '')}`
+            }})
             .then(response => {
 
                 setData(response.data);
@@ -41,7 +49,15 @@ const District = () => {
                 console.error(error);
             });
     }, []);
-    console.log(data)
+    let dataArray = [];
+
+    for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+            dataArray.push(data[key]);
+        }
+    }
+
+    console.log(dataArray);
 
     return (
 
@@ -68,34 +84,21 @@ const District = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {data.map(district => (
-                    parseInt(district.seminar_plan_difference)<30  ? (
-                    <tr  className="text-center table-danger">
-                        <td><Link to={"/staff/"+district.district_id}>{district.district_name}</Link></td>
-                        <td>{district.member_count}</td>
-                        <td>{district.tasks_done_today}</td>
-                        <td>{district.seminar_plan_difference}</td>
-                        <td>{district.tasks_done_yesterday}</td>
-                        <td>{district.tasks_done_today}</td>
-                        {district.tasks_done_difference>0 ? (<td >{district.tasks_done_difference}</td>):(<td className="text-danger">{district.tasks_done_difference}</td>)}
-                        <td>{district.tasks_done_this_week}</td>
+                {dataArray.map(district => (
+                    // parseInt(district.seminar_plan_difference)<30  ? (
+                    <tr  className="text-center ">
+                        <td><Link to={"/staff/"+district.id}>{district.name}</Link></td>
+                        <td>{district.user}</td>
+                        <td>{district.today}</td>
+                        <td>{district.kpi} %</td>
+                        <td>{district.yesterday}</td>
+                        <td>{district.today}</td>
+                        {district.farqi>0 ? (<td >{district.farqi}</td>):(<td className="text-danger">{district.farqi}</td>)}
+                        <td>{district.today}</td>
+
+                    </tr>
 
 
-
-                    </tr>) :
-                        ( <tr  className="text-center ">
-                            <td><Link to={"/staff/"+district.district_id}>{district.district_name}</Link></td>
-                            <td>{district.member_count}</td>
-                            <td>{district.tasks_done_today}</td>
-                            <td>{district.seminar_plan_difference}</td>
-                            <td>{district.tasks_done_yesterday}</td>
-                            <td>{district.tasks_done_today}</td>
-                            {district.tasks_done_difference>0 ? (<td >{district.tasks_done_difference}</td>):(<td className="text-danger">{district.tasks_done_difference}</td>)}
-                            <td>{district.tasks_done_this_week}</td>
-
-
-
-                        </tr>)
                 ))}
                 </tbody>
             </table>
