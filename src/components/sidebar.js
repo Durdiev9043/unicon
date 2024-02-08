@@ -9,7 +9,7 @@ function SideBar(){
                 <i className="fa fa-user-o" aria-hidden="true"></i>
                 Bosh sahifa
             </a>
-            <a href="/staff/task">
+            <a href="/work/come">
                 <i className="fa fa-laptop" aria-hidden="true"></i>
                 Xodimlar
             </a>

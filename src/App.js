@@ -7,7 +7,7 @@ import Sidebar from './components/sidebar'
 import Home from "./pages/Home/index.js";
 import District from "./pages/Home/district";
 import Staff from "./pages/Home/staff";
-import Task from "./pages/Home/xodim";
+import Come from "./pages/Home/xodim";
 import UserCount from "./pages/Home/userCount";
 import SignIn from "./components/LogIn/SignIn.jsx";
 import { SnackbarProvider } from "notistack";
@@ -75,12 +75,13 @@ function App() {
                                           <Route path='/district/:id'>
                                             <District />
                                           </Route>
-                                          <Route path='/staff/task'>
-                                            <Task />
-                                          </Route>
-                                        <Route path='/staff/:id'>
-                                            <Staff />
-                                          </Route>
+                                          <Route path='/staff/:id'>
+                                              <Staff />
+                                          </ Route>
+                                          <Route path='/work/come'>
+                                            <Come />
+                                          </ Route>
+
                                           <Route path='/user/count/:id'>
                                               <UserCount />
                                           </Route>
