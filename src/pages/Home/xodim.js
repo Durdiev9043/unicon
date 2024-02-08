@@ -39,7 +39,7 @@ const Come = () => {
     return (
 
         <div className="p-5">
-            <h2>Xodimlar kesimida bugun qilingan ishlar boyicha hisobot</h2>
+            <h2>Xodimlar ishga kelish hisoboti</h2>
 
             <table className="table table-striped table-bordered">
                 <thead>
