@@ -84,10 +84,12 @@ const District = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {dataArray.map(district => (
+                {dataArray.map(district =>
                     // parseInt(district.seminar_plan_difference)<30  ? (
-                    <tr  className="text-center ">
-                        <td><Link to={"/staff/"+district.id}>{district.name}</Link></td>
+
+                            parseInt(district.kpi)<30  ? (
+                    <tr  className="text-center w700 table-danger ">
+                        <td><Link className="font-weight-bold text-decoration-none text-dark" to={"/staff/"+district.id}>{district.name}</Link></td>
                         <td>{district.user}</td>
                         <td>{district.today}</td>
                         <td>{district.kpi} %</td>
@@ -99,7 +101,44 @@ const District = () => {
                     </tr>
 
 
-                ))}
+                ):
+                        parseInt(district.kpi)>=30 && parseInt(district.kpi)<60 ?
+                            (
+                                <tr  className="text-center w700 table-warning">
+                                    <td><Link className="font-weight-bold text-decoration-none text-dark" to={"/staff/"+district.id}>{district.name}</Link></td>
+                                    <td>{district.user}</td>
+                                    <td>{district.today}</td>
+                                    <td>{district.kpi} %</td>
+                                    <td>{district.yesterday}</td>
+                                    <td>{district.today}</td>
+                                    {district.farqi>0 ? (<td >{district.farqi}</td>):(<td className="text-danger">{district.farqi}</td>)}
+                                    <td>{district.today}</td>
+
+                                </tr>
+                            )  : parseInt(district.kpi)>=60 && parseInt(district.kpi)<100 ?
+                        (<tr  className="text-center table-primary w700">
+                            <td><Link className="font-weight-bold text-decoration-none text-dark" to={"/staff/"+district.id}>{district.name}</Link></td>
+                            <td>{district.user}</td>
+                            <td>{district.today}</td>
+                            <td>{district.kpi} %</td>
+                            <td>{district.yesterday}</td>
+                            <td>{district.today}</td>
+                            {district.farqi>0 ? (<td >{district.farqi}</td>):(<td className="text-danger">{district.farqi}</td>)}
+                            <td>{district.today}</td>
+
+                        </tr>): parseInt(district.kpi)>=100  ?
+                                    (<tr  className="text-center s100 w700">
+                                        <td><Link className="font-weight-bold text-decoration-none text-dark" to={"/staff/"+district.id}>{district.name}</Link></td>
+                                        <td>{district.user}</td>
+                                        <td>{district.today}</td>
+                                        <td>{district.kpi} %</td>
+                                        <td>{district.yesterday}</td>
+                                        <td>{district.today}</td>
+                                        {district.farqi>0 ? (<td >{district.farqi}</td>):(<td className="text-danger">{district.farqi}</td>)}
+                                        <td>{district.today}</td>
+
+                                    </tr>): null
+                    )}
                 </tbody>
             </table>
         </div>
