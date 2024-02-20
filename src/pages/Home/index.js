@@ -196,9 +196,9 @@ const Home = () => {
           <tbody>
           {/* API-dan olingan ma'lumotlarni jadvalga chiqaring */}
           {dataArray.map(item =>
-              // parseInt(item.seminar_plan_difference)<30  ? (
+              parseInt(item.kpi)<30  ? (
 
-            <tr key={item.id}  className="w700"   >
+            <tr key={item.id}  className="w700 table-danger"   >
                 <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
                 <td className="text-center"> {item.District}</td>
                 <td className="text-center">{item.User}</td>
@@ -210,47 +210,47 @@ const Home = () => {
                 <td className="text-center">{item.thisweek}</td>
 
               </tr>
-          // ):
-          //         parseInt(item.seminar_plan_difference)>=30 && parseInt(item.seminar_plan_difference)<60 ?
-          //         (<tr key={item.id}  className="w700 table-warning"   >
-          //           <td ><Link class="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-          //           <td className="text-center"> {item.district_count}</td>
-          //           <td className="text-center">{item.member_count}</td>
-          //           <td className="text-center">{item.tasks_done_today}</td>
-          //           <td className="text-center">{item.seminar_plan_difference} </td>
-          //           <td className="text-center">{item.tasks_done_yesterday}</td>
-          //           <td className="text-center">{item.tasks_done_today}</td>
-          //           {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-          //           <td className="text-center">{item.tasks_done_this_week}</td>
-          //
-          //         </tr>
-          //         ) : parseInt(item.seminar_plan_difference)>=60 && parseInt(item.seminar_plan_difference)<100 ?
-          //                 (<tr key={item.id}  className=" table-primary w700"   >
-          //                       <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-          //                       <td className="text-center font-weight-bold"> {item.district_count}</td>
-          //                       <td className="text-center font-weight-bold">{item.member_count}</td>
-          //                       <td className="text-center font-weight-bold">{item.tasks_done_today}</td>
-          //                       <td className="text-center font-weight-bold">{item.seminar_plan_difference} </td>
-          //                       <td className="text-center font-weight-bold">{item.tasks_done_yesterday}</td>
-          //                       <td className="text-center font-weight-bold">{item.tasks_done_today}</td>
-          //                       {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-          //                       <td className="text-center">{item.tasks_done_this_week}</td>
-          //
-          //                     </tr>
-          //                 ) : parseInt(item.seminar_plan_difference)>=100  ?
-          //                     (<tr key={item.id}  className="s100 w700"   >
-          //                           <td className="s100"><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.region_id}>{item.region_name}</Link></td>
-          //                           <td className="text-center font-weight-bold s100"> {item.district_count}</td>
-          //                           <td className="text-center font-weight-bold s100">{item.member_count}</td>
-          //                           <td className="text-center font-weight-bold s100">{item.tasks_done_today}</td>
-          //                           <td className="text-center font-weight-bold s100">{item.seminar_plan_difference} </td>
-          //                           <td className="text-center font-weight-bold s100">{item.tasks_done_yesterday}</td>
-          //                           <td className="text-center font-weight-bold s100">{item.tasks_done_today}</td>
-          //                           {item.tasks_done_difference>0 ? (<td className="text-center s100">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
-          //                           <td className="text-center s100">{item.tasks_done_this_week}</td>
-          //
-          //                         </tr>
-          //                     ) : null
+          ):
+                  parseInt(item.kpi)>=30 && parseInt(item.kpi)<60 ?
+                  (<tr key={item.id}  className="w700 table-warning"   >
+                        <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
+                        <td className="text-center"> {item.District}</td>
+                        <td className="text-center">{item.User}</td>
+                        <td className="text-center">{item.today}</td>
+                        <td className="text-center">{item.kpi} </td>
+                        <td className="text-center">{item.yesterday}</td>
+                        <td className="text-center">{item.today}</td>
+                        {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                        <td className="text-center">{item.thisweek}</td>
+
+                  </tr>
+                  ) : parseInt(item.kpi)>=60 && parseInt(item.kpi)<100 ?
+                          (<tr key={item.id}  className=" table-primary w700"   >
+                                <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
+                                <td className="text-center"> {item.District}</td>
+                                <td className="text-center">{item.User}</td>
+                                <td className="text-center">{item.today}</td>
+                                <td className="text-center">{item.kpi} </td>
+                                <td className="text-center">{item.yesterday}</td>
+                                <td className="text-center">{item.today}</td>
+                                {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                                <td className="text-center">{item.thisweek}</td>
+
+                              </tr>
+                          ) : parseInt(item.kpi)>=100  ?
+                              (<tr key={item.id}  className="s100 w700"   >
+                                    <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
+                                    <td className="text-center"> {item.District}</td>
+                                    <td className="text-center">{item.User}</td>
+                                    <td className="text-center">{item.today}</td>
+                                    <td className="text-center">{item.kpi} </td>
+                                    <td className="text-center">{item.yesterday}</td>
+                                    <td className="text-center">{item.today}</td>
+                                    {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                                    <td className="text-center">{item.thisweek}</td>
+
+                                  </tr>
+                              ) : null
 
           )}
           </tbody>
