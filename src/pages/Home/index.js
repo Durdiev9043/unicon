@@ -203,10 +203,10 @@ const Home = () => {
                 <td className="text-center"> {item.District}</td>
                 <td className="text-center">{item.User}</td>
                 <td className="text-center">{item.today}</td>
-                <td className="text-center">{item.today} </td>
+                <td className="text-center">{item.kpi} </td>
                 <td className="text-center">{item.yesterday}</td>
                 <td className="text-center">{item.today}</td>
-              {item.tasks_done_difference>0 ? (<td className="text-center">{item.tasks_done_difference}</td>):(<td className="text-center text-danger">{item.tasks_done_difference}</td>)}
+              {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
                 <td className="text-center">{item.thisweek}</td>
 
               </tr>
