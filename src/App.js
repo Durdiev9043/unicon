@@ -86,7 +86,7 @@ function App() {
                                           <Route path='/user/count/:id'>
                                               <UserCount />
                                           </Route>
-                                          <Route path='/filtr/region/:to_date/:from_date'>
+                                          <Route path='/filtr/region'>
                                               <FiltrRegion />
                                           </Route>
                                       </>

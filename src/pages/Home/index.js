@@ -177,11 +177,10 @@ const Home = () => {
           <div className="row">
             <div className="col-6"></div>
             <div className="col-6">
-            <form  >
+            <form action="/filtr/region/" >
               <div className="input-group text-end">
                 <input type="date" className="form-control" name="to_date" placeholder="Start"/>
-                <span className="input-group-addon"> </span>
-                <input type="date" className="form-control" name="from_date" placeholder="End"/>
+
                 <input type="submit" className="form-control" value="yuborish"/>
               </div>
             </form>

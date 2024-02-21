@@ -28,6 +28,7 @@ import { UserPages } from "../PageFail/Pages3.jsx";
 import { User } from "../PageFail/userPage.jsx";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import 'jquery/dist/jquery.min.js';
 
 //Datatable Modules
@@ -108,6 +109,13 @@ const Home = () => {
 
     const classes = useStyles();
     const theme = useTheme();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+    // URL'den sorgu parametrelerini alın
+    const toDate = searchParams.get('to_date');
+    const fromDate = searchParams.get('from_date');
+
     const [open, setOpen] = React.useState(false);
     const [card, setCard] = useState(false);
     const [data, setData] = useState([]);
@@ -118,9 +126,10 @@ const Home = () => {
         const substringAfterPipe = parts[1];
         console.log(substringAfterPipe.substring(0, str.length - 1))
         // API-dan ma'lumotlarni olish
-        axios.get('http://unic2staffbot.us.uz/api/boss/glavni', {
+        axios.get(`http://unic2staffbot.us.uz/api/filter/region/?to_date=${toDate}`, {
             headers:{
                 Authorization :`Bearer ${substringAfterPipe.replace(/"/g, '')}`
+                // Authorization :`Bearer Yfg0Nt17Vfo0maJ1vZhsd1PGEawKlGOrmATJJJVD509e9785`
             }
         })
             .then(response => {
@@ -150,12 +159,14 @@ const Home = () => {
             .catch(error => {
                 console.error(error);
             })}, []);
+
     const handleCardClick = () => {
         setCard(!card);
     };
     const handleDrawerOpen = () => {
         setOpen(true);
     };
+    console.log(data);
     const [name, setName] = React.useState("");
     console.log(name);
 
@@ -182,99 +193,98 @@ const Home = () => {
                 <div className="row">
                     <div className="col-6"></div>
                     <div className="col-6">
-                        <form action="" >
+                        <form action="/filtr/region/" >
                             <div className="input-group text-end">
-                                <input type="date" className="form-control" placeholder="Start"/>
-                                <span className="input-group-addon"> </span>
-                                <input type="date" className="form-control" placeholder="End"/>
-                                <input type="button" className="form-control" value="yuborish"/>
+                                <input type="date" className="form-control" name="to_date" placeholder="Start"/>
+
+                                <input type="submit" className="form-control" value="yuborish"/>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            {/*<table className="table shadow-sm table-striped table-bordered mt-4" id="example">*/}
-            {/*    <thead>*/}
-            {/*    <tr  className="text-center red" >*/}
-            {/*        <th rowSpan="2">Viloyat nomi</th>*/}
-            {/*        <th rowSpan="2">Tumanlar soni</th>*/}
-            {/*        <th rowSpan="2">Xodimlar soni</th>*/}
-            {/*        <th colSpan="2">Bir kunlik</th>*/}
-            {/*        <th rowSpan="2">Kechagi</th>*/}
-            {/*        <th rowSpan="2">Bugungi</th>*/}
-            {/*        <th rowSpan="2">Farqi</th>*/}
-            {/*        <th rowSpan="2">Bir hafta</th>*/}
-            {/*        /!* Boshqa ustunlar kerak bo'lsa ularga ham shu tarzda qo'shing *!/*/}
-            {/*    </tr>*/}
-            {/*    <tr  className="text-center">*/}
+            <table className="table shadow-sm table-striped table-bordered mt-4" id="example">
+                <thead>
+                <tr  className="text-center red" >
+                    <th rowSpan="2">Viloyat nomi</th>
+                    <th rowSpan="2">Tumanlar soni</th>
+                    <th rowSpan="2">Xodimlar soni</th>
+                    <th colSpan="2">Bir kunlik</th>
+                    <th rowSpan="2">Kechagi</th>
+                    <th rowSpan="2">Bugungi</th>
+                    <th rowSpan="2">Farqi</th>
+                    {/*<th rowSpan="2">Bir hafta</th>*/}
+                    {/* Boshqa ustunlar kerak bo'lsa ularga ham shu tarzda qo'shing */}
+                </tr>
+                <tr  className="text-center">
 
-            {/*        <th>Bajarilgan Soni</th>*/}
-            {/*        <th>Bajarilgan %</th>*/}
+                    <th>Bajarilgan Soni</th>
+                    <th>Bajarilgan %</th>
 
-            {/*    </tr>*/}
-            {/*    </thead>*/}
-            {/*    <tbody>*/}
-            {/*    /!* API-dan olingan ma'lumotlarni jadvalga chiqaring *!/*/}
-            {/*    {dataArray.map(item =>*/}
-            {/*        parseInt(item.kpi)<30  ? (*/}
+                </tr>
+                </thead>
+                <tbody>
+                {/* API-dan olingan ma'lumotlarni jadvalga chiqaring */}
+                {dataArray.map(item =>
+                    parseInt(item.kpi)<30  ? (
 
-            {/*                <tr key={item.id}  className="w700 table-danger"   >*/}
-            {/*                    <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>*/}
-            {/*                    <td className="text-center"> {item.District}</td>*/}
-            {/*                    <td className="text-center">{item.User}</td>*/}
-            {/*                    <td className="text-center">{item.today}</td>*/}
-            {/*                    <td className="text-center">{item.kpi} </td>*/}
-            {/*                    <td className="text-center">{item.yesterday}</td>*/}
-            {/*                    <td className="text-center">{item.today}</td>*/}
-            {/*                    {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}*/}
-            {/*                    <td className="text-center">{item.thisweek}</td>*/}
+                            <tr key={item.id}  className="w700 table-danger"   >
+                                <td ><p className="font-weight-bold text-decoration-none text-dark" >{item.nomi}</p></td>
+                                <td className="text-center"> {item.District}</td>
+                                <td className="text-center">{item.User}</td>
+                                <td className="text-center">{item.today}</td>
+                                <td className="text-center">{item.kpi} </td>
+                                <td className="text-center">{item.yesterday}</td>
+                                <td className="text-center">{item.today}</td>
+                                {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                                {/*<td className="text-center">{item.thisweek}</td>*/}
 
-            {/*                </tr>*/}
-            {/*            ):*/}
-            {/*            parseInt(item.kpi)>=30 && parseInt(item.kpi)<60 ?*/}
-            {/*                (<tr key={item.id}  className="w700 table-warning"   >*/}
-            {/*                        <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>*/}
-            {/*                        <td className="text-center"> {item.District}</td>*/}
-            {/*                        <td className="text-center">{item.User}</td>*/}
-            {/*                        <td className="text-center">{item.today}</td>*/}
-            {/*                        <td className="text-center">{item.kpi} </td>*/}
-            {/*                        <td className="text-center">{item.yesterday}</td>*/}
-            {/*                        <td className="text-center">{item.today}</td>*/}
-            {/*                        {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}*/}
-            {/*                        <td className="text-center">{item.thisweek}</td>*/}
+                            </tr>
+                        ):
+                        parseInt(item.kpi)>=30 && parseInt(item.kpi)<60 ?
+                            (<tr key={item.id}  className="w700 table-warning"   >
+                                    <td ><p className="font-weight-bold text-decoration-none text-dark" >{item.nomi}</p></td>
+                                    <td className="text-center"> {item.District}</td>
+                                    <td className="text-center">{item.User}</td>
+                                    <td className="text-center">{item.today}</td>
+                                    <td className="text-center">{item.kpi} </td>
+                                    <td className="text-center">{item.yesterday}</td>
+                                    <td className="text-center">{item.today}</td>
+                                    {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                                    {/*<td className="text-center">{item.thisweek}</td>*/}
 
-            {/*                    </tr>*/}
-            {/*                ) : parseInt(item.kpi)>=60 && parseInt(item.kpi)<100 ?*/}
-            {/*                    (<tr key={item.id}  className=" table-primary w700"   >*/}
-            {/*                            <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>*/}
-            {/*                            <td className="text-center"> {item.District}</td>*/}
-            {/*                            <td className="text-center">{item.User}</td>*/}
-            {/*                            <td className="text-center">{item.today}</td>*/}
-            {/*                            <td className="text-center">{item.kpi} </td>*/}
-            {/*                            <td className="text-center">{item.yesterday}</td>*/}
-            {/*                            <td className="text-center">{item.today}</td>*/}
-            {/*                            {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}*/}
-            {/*                            <td className="text-center">{item.thisweek}</td>*/}
+                                </tr>
+                            ) : parseInt(item.kpi)>=60 && parseInt(item.kpi)<100 ?
+                                (<tr key={item.id}  className=" table-primary w700"   >
+                                        <td ><p className="font-weight-bold text-decoration-none text-dark" >{item.nomi}</p></td>
+                                        <td className="text-center"> {item.District}</td>
+                                        <td className="text-center">{item.User}</td>
+                                        <td className="text-center">{item.today}</td>
+                                        <td className="text-center">{item.kpi} </td>
+                                        <td className="text-center">{item.yesterday}</td>
+                                        <td className="text-center">{item.today}</td>
+                                        {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                                        {/*<td className="text-center">{item.thisweek}</td>*/}
 
-            {/*                        </tr>*/}
-            {/*                    ) : parseInt(item.kpi)>=100  ?*/}
-            {/*                        (<tr key={item.id}  className="s100 w700"   >*/}
-            {/*                                <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>*/}
-            {/*                                <td className="text-center"> {item.District}</td>*/}
-            {/*                                <td className="text-center">{item.User}</td>*/}
-            {/*                                <td className="text-center">{item.today}</td>*/}
-            {/*                                <td className="text-center">{item.kpi} </td>*/}
-            {/*                                <td className="text-center">{item.yesterday}</td>*/}
-            {/*                                <td className="text-center">{item.today}</td>*/}
-            {/*                                {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}*/}
-            {/*                                <td className="text-center">{item.thisweek}</td>*/}
+                                    </tr>
+                                ) : parseInt(item.kpi)>=100  ?
+                                    (<tr key={item.id}  className="s100 w700"   >
+                                            <td ><p className="font-weight-bold text-decoration-none text-dark" >{item.nomi}</p></td>
+                                            <td className="text-center"> {item.District}</td>
+                                            <td className="text-center">{item.User}</td>
+                                            <td className="text-center">{item.today}</td>
+                                            <td className="text-center">{item.kpi} </td>
+                                            <td className="text-center">{item.yesterday}</td>
+                                            <td className="text-center">{item.today}</td>
+                                            {item.farqi>0 ? (<td className="text-center">{item.farqi}</td>):(<td className="text-center text-danger">{item.farqi}</td>)}
+                                            {/*<td className="text-center">{item.thisweek}</td>*/}
 
-            {/*                            </tr>*/}
-            {/*                        ) : null*/}
+                                        </tr>
+                                    ) : null
 
-            {/*    )}*/}
-            {/*    </tbody>*/}
-            {/*</table>*/}
+                )}
+                </tbody>
+            </table>
         </div>
     );
 };
