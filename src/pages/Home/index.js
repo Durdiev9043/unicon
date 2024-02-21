@@ -100,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 
+
 }));
 
 const Home = () => {
@@ -126,7 +127,9 @@ const Home = () => {
           $(document).ready(function () {
             setTimeout(function(){
               $('#example').DataTable({
-                "pageLength": 50,
+                "pageLength": 200,
+                searching: false,
+                lengthChange: false,
                 language: {
                   search: "Qidirish:",
                   lengthMenu:    " _MENU_ ",
@@ -171,7 +174,19 @@ const Home = () => {
       <div className="row p-5">
         <div className="shadow-sm p-3">
           <h2 className="text-center">Viloyatlar kesimida qilingan ishlar hisoboti</h2>
-
+          <div className="row">
+            <div className="col-6"></div>
+            <div className="col-6">
+            <form  >
+              <div className="input-group text-end">
+                <input type="date" className="form-control" name="to_date" placeholder="Start"/>
+                <span className="input-group-addon"> </span>
+                <input type="date" className="form-control" name="from_date" placeholder="End"/>
+                <input type="submit" className="form-control" value="yuborish"/>
+              </div>
+            </form>
+            </div>
+          </div>
         </div>
         <table className="table shadow-sm table-striped table-bordered mt-4" id="example">
           <thead>

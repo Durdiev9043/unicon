@@ -8,6 +8,7 @@ import Home from "./pages/Home/index.js";
 import District from "./pages/Home/district";
 import Staff from "./pages/Home/staff";
 import Come from "./pages/Home/xodim";
+import FiltrRegion from "./pages/Home/FiltrRegion";
 import UserCount from "./pages/Home/userCount";
 import SignIn from "./components/LogIn/SignIn.jsx";
 import { SnackbarProvider } from "notistack";
@@ -84,6 +85,9 @@ function App() {
 
                                           <Route path='/user/count/:id'>
                                               <UserCount />
+                                          </Route>
+                                          <Route path='/filtr/region/:to_date/:from_date'>
+                                              <FiltrRegion />
                                           </Route>
                                       </>
                                       )}

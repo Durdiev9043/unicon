@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import axios from "axios";
+import $ from "jquery";
 
 const Come = () => {
 
@@ -20,6 +21,25 @@ const Come = () => {
             .then(response => {
                 // Olingan ma'lumotlarni state-ga saqlash
                 setData(response.data);
+                $(document).ready(function () {
+                    setTimeout(function(){
+                        $('#example').DataTable({
+                            "pageLength": 100,
+
+                            language: {
+                                search: "Qidirish:",
+                                lengthMenu:    " _MENU_ ",
+                                info:           " _START_/_END_  Jami:  _TOTAL_ ",
+                                paginate: {
+                                    first:      "Premier",
+                                    previous:   "Oldingi",
+                                    next:       "Keyingi",
+                                    last:       "<-"
+                                },
+                            }
+                        });
+                    } ,1000);
+                });
             })
             .catch(error => {
                 console.error(error);
@@ -41,7 +61,7 @@ const Come = () => {
         <div className="p-5">
             <h2>Xodimlar ishga kelish hisoboti</h2>
 
-            <table className="table table-striped table-bordered">
+            <table className="table table-striped table-bordered" id="example">
                 <thead>
                 <tr  className="text-center">
                     <th>F.I.O</th>
