@@ -99,7 +99,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-
+  success: {
+    background: '#28a745',
+},
 
 }));
 
@@ -226,8 +228,8 @@ const Home = () => {
               </tr>
           ):
                   parseInt(item.kpi)>=30 && parseInt(item.kpi)<60 ?
-                  (<tr key={item.id}  className="w700 table-warning"   >
-                        <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
+                  (<tr key={item.id}  className="w700  table-warning"   >
+                        <td ><Link className="font-weight-bold  text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
                         <td className="text-center"> {item.District}</td>
                         <td className="text-center">{item.User}</td>
                         <td className="text-center">{item.today}</td>
@@ -251,9 +253,9 @@ const Home = () => {
                                 <td className="text-center">{item.thisweek}</td>
 
                               </tr>
-                          ) : parseInt(item.kpi)>=100  ?
-                              (<tr key={item.id}  className="s100 w700"   >
-                                    <td ><Link className="font-weight-bold text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
+                          ) : parseInt(item.kpi) >= 100  ?
+                              (<tr key={item.id}  className="w700 success"   >
+                                    <td ><Link className="font-weight-bold  text-decoration-none text-dark" to={"district/"+item.id}>{item.nomi}</Link></td>
                                     <td className="text-center"> {item.District}</td>
                                     <td className="text-center">{item.User}</td>
                                     <td className="text-center">{item.today}</td>

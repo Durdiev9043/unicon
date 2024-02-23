@@ -92,7 +92,22 @@ body {
 }
 .s100{
     background: rgba(8, 255, 0, 0.24) !important;
+    /*background-color:#28a745 !important;*/
 }
 .w700{
     font-weight: 700;
 }
+.success{
+    --bs-table-color: #000;
+    --bs-table-bg: #28a745;
+    --bs-table-border-color: #a7b9b1;
+    --bs-table-striped-bg: #28a745;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #28a745;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #28a745;
+    --bs-table-hover-color: #000;
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+}
+table{border-collapse:collapse;}
